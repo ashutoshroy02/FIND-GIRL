@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Switches</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url('https://images.pexels.com/photos/1004014/pexels-photo-1004014.jpeg'); /* Background Image */
+            background-size: cover; /* Cover the whole background */
+            background-position: center; /* Center the image */
+            font-family: Arial, sans-serif;
+            color: white; /* Change text color to white for better visibility */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            backdrop-filter: blur(10px); /* Add a blur effect behind the container */
+            padding: 20px; /* Add padding for better spacing */
+            border-radius: 10px; /* Round the corners of the container */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow for better visibility */
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: #ddd;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .switch.active {
+            background-color: #4CAF50;
+        }
+
+        .switch::before {
+            content: "";
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .switch.active::before {
+            transform: translateX(30px);
+        }
+
+        .label {
+            font-size: 18px;
+        }
+
+        h2 {
+            margin-bottom: 20px; /* Add some margin to the heading */
+        }
+    </style>
+</head>
+<body>
+
+<h2>❤️PERFECT🫠</h2>
+
+<div class="container">
+    <div class="toggle-container">
+        <div class="switch" id="toggle1" onclick="toggleSwitch(1)"></div>
+        <span class="label">Beautiful</span>
+    </div>
+    <div class="toggle-container">
+        <div class="switch" id="toggle2" onclick="toggleSwitch(2)"></div>
+        <span class="label">Dahej</span>
+    </div>
+    <div class="toggle-container">
+        <div class="switch" id="toggle3" onclick="toggleSwitch(3)"></div>
+        <span class="label">Seal Packed</span>
+    </div>
+</div>
+
+<script>
+    // Array to keep track of active switches
+    let activeToggles = [];
+
+    function toggleSwitch(id) {
+        const toggle = document.getElementById(`toggle${id}`);
+        
+        // Check if toggle is already active
+        if (toggle.classList.contains('active')) {
+            toggle.classList.remove('active');
+            activeToggles = activeToggles.filter(t => t !== id);
+        } else {
+            // Only allow two active toggles
+            if (activeToggles.length < 2) {
+                toggle.classList.add('active');
+                activeToggles.push(id);
+            } else {
+                // Remove the first toggle if we have 2 already
+                const firstToggleId = activeToggles.shift(); // Get the first active toggle ID
+                const firstToggle = document.getElementById(`toggle${firstToggleId}`); // Get the toggle element
+                firstToggle.classList.remove('active'); // Remove active class from the first toggle
+                // Add the new toggle as active
+                toggle.classList.add('active');
+                activeToggles.push(id); // Add the new toggle to the active list
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
